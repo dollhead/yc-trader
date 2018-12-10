@@ -1,0 +1,14 @@
+/home/dollhead/Documents/programming/YCTrader/YCTrader.Web/bin/Debug/netcoreapp2.2/YCTrader.Web.deps.json
+/home/dollhead/Documents/programming/YCTrader/YCTrader.Web/bin/Debug/netcoreapp2.2/YCTrader.Web.runtimeconfig.json
+/home/dollhead/Documents/programming/YCTrader/YCTrader.Web/bin/Debug/netcoreapp2.2/YCTrader.Web.runtimeconfig.dev.json
+/home/dollhead/Documents/programming/YCTrader/YCTrader.Web/bin/Debug/netcoreapp2.2/YCTrader.Web.dll
+/home/dollhead/Documents/programming/YCTrader/YCTrader.Web/bin/Debug/netcoreapp2.2/YCTrader.Web.pdb
+/home/dollhead/Documents/programming/YCTrader/YCTrader.Web/obj/Debug/netcoreapp2.2/YCTrader.Web.csprojAssemblyReference.cache
+/home/dollhead/Documents/programming/YCTrader/YCTrader.Web/obj/Debug/netcoreapp2.2/YCTrader.Web.csproj.CoreCompileInputs.cache
+/home/dollhead/Documents/programming/YCTrader/YCTrader.Web/obj/Debug/netcoreapp2.2/YCTrader.Web.RazorAssemblyInfo.cache
+/home/dollhead/Documents/programming/YCTrader/YCTrader.Web/obj/Debug/netcoreapp2.2/YCTrader.Web.RazorAssemblyInfo.cs
+/home/dollhead/Documents/programming/YCTrader/YCTrader.Web/obj/Debug/netcoreapp2.2/YCTrader.Web.AssemblyInfoInputs.cache
+/home/dollhead/Documents/programming/YCTrader/YCTrader.Web/obj/Debug/netcoreapp2.2/YCTrader.Web.AssemblyInfo.cs
+/home/dollhead/Documents/programming/YCTrader/YCTrader.Web/obj/Debug/netcoreapp2.2/YCTrader.Web.RazorTargetAssemblyInfo.cache
+/home/dollhead/Documents/programming/YCTrader/YCTrader.Web/obj/Debug/netcoreapp2.2/YCTrader.Web.dll
+/home/dollhead/Documents/programming/YCTrader/YCTrader.Web/obj/Debug/netcoreapp2.2/YCTrader.Web.pdb
