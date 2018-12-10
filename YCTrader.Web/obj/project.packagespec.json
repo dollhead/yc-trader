@@ -14,7 +14,11 @@
     ],
     "frameworks": {
       "netcoreapp2.2": {
-        "projectReferences": {}
+        "projectReferences": {
+          "/home/dollhead/Documents/programming/YCTrader/YCTrader.Services/YCTrader.Services.csproj": {
+            "projectPath": "/home/dollhead/Documents/programming/YCTrader/YCTrader.Services/YCTrader.Services.csproj"
+          }
+        }
       }
     },
     "warningProperties": {
@@ -34,6 +38,10 @@
         },
         "Microsoft.AspNetCore.Razor.Design": {
           "suppressParent": "All",
+          "target": "Package",
+          "version": "[2.2.0, )"
+        },
+        "Microsoft.Extensions.Http.Polly": {
           "target": "Package",
           "version": "[2.2.0, )"
         },

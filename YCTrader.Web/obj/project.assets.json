@@ -2137,6 +2137,20 @@
           "lib/netstandard2.0/Microsoft.Extensions.Http.dll": {}
         }
       },
+      "Microsoft.Extensions.Http.Polly/2.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Http": "2.2.0",
+          "Polly": "6.0.1",
+          "Polly.Extensions.Http": "2.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.Extensions.Http.Polly.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Extensions.Http.Polly.dll": {}
+        }
+      },
       "Microsoft.Extensions.Identity.Core/2.2.0": {
         "type": "package",
         "dependencies": {
@@ -2744,6 +2758,27 @@
         },
         "runtime": {
           "lib/netstandard1.3/Newtonsoft.Json.Bson.dll": {}
+        }
+      },
+      "Polly/6.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Polly.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Polly.dll": {}
+        }
+      },
+      "Polly.Extensions.Http/2.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Polly": "6.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.0/Polly.Extensions.Http.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Polly.Extensions.Http.dll": {}
         }
       },
       "Remotion.Linq/2.2.0": {
@@ -4437,6 +4472,16 @@
         },
         "runtime": {
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
+        }
+      },
+      "YCTrader.Services/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.2",
+        "compile": {
+          "bin/placeholder/YCTrader.Services.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/YCTrader.Services.dll": {}
         }
       }
     }
@@ -6383,6 +6428,19 @@
         "microsoft.extensions.http.nuspec"
       ]
     },
+    "Microsoft.Extensions.Http.Polly/2.2.0": {
+      "sha512": "uO1xOYZY3uRkQDkZSPUcnNivP+ie0X7DZO+A4dtEqZirbN9R+wnnpTpSRptTpVW9K0dWqpSOlueyhvVJMjg7Kg==",
+      "type": "package",
+      "path": "microsoft.extensions.http.polly/2.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Microsoft.Extensions.Http.Polly.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.Http.Polly.xml",
+        "microsoft.extensions.http.polly.2.2.0.nupkg.sha512",
+        "microsoft.extensions.http.polly.nuspec"
+      ]
+    },
     "Microsoft.Extensions.Identity.Core/2.2.0": {
       "sha512": "pBN/MVimujtlhpBcypShupKRvTdb8veEhzjvqjaGOzU3lochzttstbV2I56xhxac+j7FzNOh9PKp8qYz4zY1ZA==",
       "type": "package",
@@ -7377,6 +7435,44 @@
         "lib/netstandard1.3/Newtonsoft.Json.Bson.xml",
         "newtonsoft.json.bson.1.0.1.nupkg.sha512",
         "newtonsoft.json.bson.nuspec"
+      ]
+    },
+    "Polly/6.0.1": {
+      "sha512": "7JsxlfA4i9f2OkvEpqErfU/dq4T8IMMJDI0oV2LXfs1YBSFwVGFD5GZwZ4WZX1JUo1wz6Y1nRnfIVkw0tPXD/Q==",
+      "type": "package",
+      "path": "polly/6.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard1.1/Polly.deps.json",
+        "lib/netstandard1.1/Polly.dll",
+        "lib/netstandard1.1/Polly.pdb",
+        "lib/netstandard1.1/Polly.xml",
+        "lib/netstandard2.0/Polly.deps.json",
+        "lib/netstandard2.0/Polly.dll",
+        "lib/netstandard2.0/Polly.pdb",
+        "lib/netstandard2.0/Polly.xml",
+        "polly.6.0.1.nupkg.sha512",
+        "polly.nuspec"
+      ]
+    },
+    "Polly.Extensions.Http/2.0.1": {
+      "sha512": "PkvdqDMfyFN1Qq9InaSrslPZxxz72LrS28y4uzY6SkTwm7xVld8IT6DTwZtx2tJSqFDIL6pjwfeTcnKgMekaiw==",
+      "type": "package",
+      "path": "polly.extensions.http/2.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard1.1/Polly.Extensions.Http.deps.json",
+        "lib/netstandard1.1/Polly.Extensions.Http.dll",
+        "lib/netstandard1.1/Polly.Extensions.Http.pdb",
+        "lib/netstandard1.1/Polly.Extensions.Http.xml",
+        "lib/netstandard2.0/Polly.Extensions.Http.deps.json",
+        "lib/netstandard2.0/Polly.Extensions.Http.dll",
+        "lib/netstandard2.0/Polly.Extensions.Http.pdb",
+        "lib/netstandard2.0/Polly.Extensions.Http.xml",
+        "polly.extensions.http.2.0.1.nupkg.sha512",
+        "polly.extensions.http.nuspec"
       ]
     },
     "Remotion.Linq/2.2.0": {
@@ -12126,13 +12222,20 @@
         "system.xml.xpath.xdocument.4.3.0.nupkg.sha512",
         "system.xml.xpath.xdocument.nuspec"
       ]
+    },
+    "YCTrader.Services/1.0.0": {
+      "type": "project",
+      "path": "../YCTrader.Services/YCTrader.Services.csproj",
+      "msbuildProject": "../YCTrader.Services/YCTrader.Services.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.2": [
       "Microsoft.AspNetCore.App >= 2.2.0",
       "Microsoft.AspNetCore.Razor.Design >= 2.2.0",
-      "Microsoft.NETCore.App >= 2.2.0"
+      "Microsoft.Extensions.Http.Polly >= 2.2.0",
+      "Microsoft.NETCore.App >= 2.2.0",
+      "YCTrader.Services >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -12162,7 +12265,11 @@
       },
       "frameworks": {
         "netcoreapp2.2": {
-          "projectReferences": {}
+          "projectReferences": {
+            "/home/dollhead/Documents/programming/YCTrader/YCTrader.Services/YCTrader.Services.csproj": {
+              "projectPath": "/home/dollhead/Documents/programming/YCTrader/YCTrader.Services/YCTrader.Services.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -12182,6 +12289,10 @@
           },
           "Microsoft.AspNetCore.Razor.Design": {
             "suppressParent": "All",
+            "target": "Package",
+            "version": "[2.2.0, )"
+          },
+          "Microsoft.Extensions.Http.Polly": {
             "target": "Package",
             "version": "[2.2.0, )"
           },

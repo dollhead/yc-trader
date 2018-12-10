@@ -1,42 +1,24 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using YCTrader.Services;
 
 namespace YCTrader.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class TraderController : ControllerBase
     {
-        // GET api/values
+        private readonly IExchangeRatesStorage _exchangeRatesProvider;
+
+        public TraderController(IExchangeRatesStorage exchangeRatesProvider)
+        {
+            _exchangeRatesProvider = exchangeRatesProvider;
+        }
+        
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public ActionResult<decimal> Get()
         {
-            return new[] {"value1", "value2"};
-        }
-
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            return new OkObjectResult(_exchangeRatesProvider.GetLatestExchangeRate());
         }
     }
 }

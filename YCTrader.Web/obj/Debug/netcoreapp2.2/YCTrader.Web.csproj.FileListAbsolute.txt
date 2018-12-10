@@ -12,3 +12,6 @@
 /home/dollhead/Documents/programming/YCTrader/YCTrader.Web/obj/Debug/netcoreapp2.2/YCTrader.Web.RazorTargetAssemblyInfo.cache
 /home/dollhead/Documents/programming/YCTrader/YCTrader.Web/obj/Debug/netcoreapp2.2/YCTrader.Web.dll
 /home/dollhead/Documents/programming/YCTrader/YCTrader.Web/obj/Debug/netcoreapp2.2/YCTrader.Web.pdb
+/home/dollhead/Documents/programming/YCTrader/YCTrader.Web/bin/Debug/netcoreapp2.2/YCTrader.Services.dll
+/home/dollhead/Documents/programming/YCTrader/YCTrader.Web/bin/Debug/netcoreapp2.2/YCTrader.Services.pdb
+/home/dollhead/Documents/programming/YCTrader/YCTrader.Web/obj/Debug/netcoreapp2.2/YCTrader.Web.csproj.CopyComplete
