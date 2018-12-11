@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YCTrader.Web", "YCTrader.We
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YCTrader.Services", "YCTrader.Services\YCTrader.Services.csproj", "{DB240433-3231-454B-A89F-E20C495CA1A1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YCTrader.Tests", "YCTrader.Tests\YCTrader.Tests.csproj", "{FA69CBF2-95C6-4057-8DBC-5463B29FFADB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{DB240433-3231-454B-A89F-E20C495CA1A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB240433-3231-454B-A89F-E20C495CA1A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB240433-3231-454B-A89F-E20C495CA1A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA69CBF2-95C6-4057-8DBC-5463B29FFADB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA69CBF2-95C6-4057-8DBC-5463B29FFADB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA69CBF2-95C6-4057-8DBC-5463B29FFADB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA69CBF2-95C6-4057-8DBC-5463B29FFADB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

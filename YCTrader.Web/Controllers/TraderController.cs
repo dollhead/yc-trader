@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
-using YCTrader.Services;
+﻿using Microsoft.AspNetCore.Mvc;
+using YCTrader.Services.Predictor;
+using YCTrader.Services.Storage;
 
 namespace YCTrader.Web.Controllers
 {
@@ -9,16 +9,20 @@ namespace YCTrader.Web.Controllers
     public class TraderController : ControllerBase
     {
         private readonly IExchangeRatesStorage _exchangeRatesProvider;
+        private readonly IExchangeRatePredictor _exchangeRatePredictor;
 
-        public TraderController(IExchangeRatesStorage exchangeRatesProvider)
+        public TraderController(IExchangeRatesStorage exchangeRatesProvider, IExchangeRatePredictor exchangeRatePredictor)
         {
+            _exchangeRatePredictor = exchangeRatePredictor;
             _exchangeRatesProvider = exchangeRatesProvider;
         }
-        
+
         [HttpGet]
-        public ActionResult<decimal> Get()
+        public ActionResult<ExchangeRateResponse> GetPrediction()
         {
-            return new OkObjectResult(_exchangeRatesProvider.GetLatestExchangeRate());
+            var response = _exchangeRatePredictor.GetPrediction();
+            response.Rate.Price = _exchangeRatesProvider.GetLatestExchangeRate();
+            return new OkObjectResult(response);
         }
     }
 }

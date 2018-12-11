@@ -1,15 +1,11 @@
-﻿using System;
-using System.Net.Http;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Polly;
-using Polly.Extensions.Http;
-using YCTrader.Services;
-using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
+using YCTrader.Services.Fetcher;
+using YCTrader.Services.Predictor;
+using YCTrader.Services.Storage;
 
 namespace YCTrader.Web
 {
@@ -29,10 +25,12 @@ namespace YCTrader.Web
 
             services.AddHostedService<ExchangeRatesFetcher>();
             services.AddSingleton<IExchangeRatesStorage, ExchangeRatesStorage>();
-            
+            services.AddTransient<IExchangeRatePredictor, ExchangeRatePredictor>();
+
             services.Configure<ExchangeRatesFetcherOptions>(Configuration.GetSection("exchangeRatesFetcherOptions"));
+            services.Configure<ExchangeRatePredictorOptions>(Configuration.GetSection("exchangeRatePredictorOptions"));
         }
-        
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
