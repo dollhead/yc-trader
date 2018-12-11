@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Polly;
 using YCTrader.Services.Fetcher;
 using YCTrader.Services.Predictor;
 using YCTrader.Services.Storage;
@@ -27,7 +28,13 @@ namespace YCTrader.Web
             services.AddSingleton<IExchangeRatesStorage, ExchangeRatesStorage>();
             services.AddTransient<IExchangeRatePredictor, ExchangeRatePredictor>();
 
-            services.Configure<ExchangeRatesFetcherOptions>(Configuration.GetSection("exchangeRatesFetcherOptions"));
+            var fetcherOptionsSection = Configuration.GetSection("exchangeRatesFetcherOptions");
+            var fetcherOptions = fetcherOptionsSection.Get<ExchangeRatesFetcherOptions>();
+            
+            services.AddHttpClient<IExchangeRatesServiceClient, ExchangeRatesServiceClient>()
+                .AddTransientHttpErrorPolicy(p => p.RetryAsync(fetcherOptions.NumberOfRetries));
+
+            services.Configure<ExchangeRatesFetcherOptions>(fetcherOptionsSection);
             services.Configure<ExchangeRatePredictorOptions>(Configuration.GetSection("exchangeRatePredictorOptions"));
         }
 

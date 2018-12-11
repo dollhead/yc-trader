@@ -15,18 +15,19 @@ namespace YCTrader.Services.Fetcher
     public class ExchangeRatesFetcher : IHostedService, IDisposable
     {
         private readonly IExchangeRatesStorage _exchangeRatesStorage;
-        private readonly HttpClient _httpClient;
+        private readonly IExchangeRatesServiceClient _exchangeRatesServiceClient;
         private readonly ILogger _logger;
         private readonly IOptionsMonitor<ExchangeRatesFetcherOptions> _options;
         private Timer _timer;
 
         public ExchangeRatesFetcher(ILogger<ExchangeRatesFetcher> logger,
             IOptionsMonitor<ExchangeRatesFetcherOptions> options,
-            IExchangeRatesStorage exchangeRatesStorage)
+            IExchangeRatesStorage exchangeRatesStorage,
+            IExchangeRatesServiceClient exchangeRatesServiceClient)
         {
             _exchangeRatesStorage = exchangeRatesStorage;
+            _exchangeRatesServiceClient = exchangeRatesServiceClient;
             _options = options;
-            _httpClient = new HttpClient();
             _logger = logger;
         }
 
@@ -56,22 +57,13 @@ namespace YCTrader.Services.Fetcher
 
         private async void DoWorkAsync(object state)
         {
-            var exchangeRate = await GetCurrentExchangeRate();
+            var exchangeRate = await _exchangeRatesServiceClient.GetCurrentExchangeRate();
             _exchangeRatesStorage.SaveExchangeRate(exchangeRate);
-        }
-
-        private async Task<ExchangeRate> GetCurrentExchangeRate()
-        {
-            using (var response = await _httpClient.GetAsync(_options.CurrentValue.ExchangeRatesServiceApiUrl))
-            {
-                var contentString = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<IEnumerable<ExchangeRate>>(contentString).FirstOrDefault();
-            }
         }
         
         private async Task GenerateDataForPreviousDays()
         {
-            var currentExchangeRate = await GetCurrentExchangeRate();
+            var currentExchangeRate = await _exchangeRatesServiceClient.GetCurrentExchangeRate();
             var numberOfPreviousDaysForDataGeneration = _options.CurrentValue.NumberOfPreviousDaysToFetch;
             var todayDate = DateTime.Today;
             var startDate = todayDate.Subtract(TimeSpan.FromDays(numberOfPreviousDaysForDataGeneration));

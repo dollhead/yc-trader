@@ -12,6 +12,8 @@
 
         public int FetchInterval { get; set; }
         
+        public int NumberOfRetries { get; set; }
+        
         public int NumberOfPreviousDaysToFetch { get; set; }
         
         public double MaxExchangeRateMultiplier { get; set; }
