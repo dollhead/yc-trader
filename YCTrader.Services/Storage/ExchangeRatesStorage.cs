@@ -8,8 +8,27 @@ namespace YCTrader.Services.Storage
 {
     public class ExchangeRatesStorage : IExchangeRatesStorage
     {
+        private readonly object _currentExchangeRateUpdateLock = new object();
         private readonly ConcurrentDictionary<long, decimal> _exchangeRates =
             new ConcurrentDictionary<long, decimal>();
+        
+        private ExchangeRate _latestExchangeRate;
+        
+        public ExchangeRate LatestExchangeRate
+        {
+            get => _latestExchangeRate;
+            set
+            {
+                lock (_currentExchangeRateUpdateLock)
+                {
+                    if (_latestExchangeRate == null || 
+                        value.Timestamp > _latestExchangeRate.Timestamp)
+                    {
+                        _latestExchangeRate = value;
+                    }
+                }
+            }
+        }
 
         public void SaveExchangeRate(ExchangeRate exchangeRate)
         {
@@ -17,12 +36,8 @@ namespace YCTrader.Services.Storage
             var price = exchangeRate.Price;
 
             _exchangeRates[dateTime] = price;
-        }
-
-        public ExchangeRate GetLatestExchangeRate()
-        {
-            var rateKeyValue = _exchangeRates.Last();
-            return new ExchangeRate {Price = rateKeyValue.Value, Timestamp = rateKeyValue.Key};
+            
+            LatestExchangeRate = exchangeRate;
         }
 
         public IDictionary<long, decimal> GetExchangeRatesForCurrentDay()

@@ -64,7 +64,7 @@ namespace YCTrader.Console
             var rateTrend = predictor.GetExchangeRateTrend();
 
             var exchangeRateProvider = app.ApplicationServices.GetService<IExchangeRatesStorage>();
-            var currentRate = exchangeRateProvider.GetLatestExchangeRate();
+            var currentRate = exchangeRateProvider.LatestExchangeRate;
 
             response.ContentType = "application/json";
             response.StatusCode = StatusCodes.Status200OK;

@@ -10,7 +10,7 @@ namespace YCTrader.Services.Storage
 
         IDictionary<long, decimal> GetExchangeRatesForCurrentDay();
 
-        ExchangeRate GetLatestExchangeRate();
+        ExchangeRate LatestExchangeRate { get; }
 
         IDictionary<long, decimal> GetExchangeRatesForPreviousDays(int numberOfDays);
     }
