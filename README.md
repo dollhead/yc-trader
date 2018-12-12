@@ -1,5 +1,6 @@
 ## Test problem for YC
 
+:warning: uses https://dotnet.microsoft.com/download/dotnet-core/2.2 :warning:
 This application fetches currency exchange rate with a configured time interval from https://forex.1forge.com/. When starting, it also generates closing prices of exchange rate for specified number of previous days, simulating historical data. Closing prices are generated using current rate and `MaxExchangeRateMultiplier`/`MinExchangeMultiplier` values from `appsettings.json`:
 
 ```
