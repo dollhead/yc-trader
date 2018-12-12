@@ -18,11 +18,11 @@ namespace YCTrader.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult<ExchangeRateResponse> GetPrediction()
+        public ActionResult GetPrediction()
         {
-            var response = _exchangeRatePredictor.GetPrediction();
-            response.Rate.Price = _exchangeRatesProvider.GetLatestExchangeRate();
-            return new OkObjectResult(response);
+            var exchangeRateTrend = _exchangeRatePredictor.GetExchangeRateTrend();
+            var currentExchangeRate = _exchangeRatesProvider.GetLatestExchangeRate();
+            return new OkObjectResult(new {currentExchangeRate, exchangeRateTrend});
         }
     }
 }

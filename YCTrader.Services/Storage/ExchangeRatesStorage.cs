@@ -19,9 +19,10 @@ namespace YCTrader.Services.Storage
             _exchangeRates[dateTime] = price;
         }
 
-        public decimal GetLatestExchangeRate()
+        public ExchangeRate GetLatestExchangeRate()
         {
-            return _exchangeRates.Last().Value;
+            var rateKeyValue = _exchangeRates.Last();
+            return new ExchangeRate {Price = rateKeyValue.Value, Timestamp = rateKeyValue.Key};
         }
 
         public IDictionary<long, decimal> GetExchangeRatesForCurrentDay()

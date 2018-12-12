@@ -11,12 +11,12 @@ namespace YCTrader.Services.Predictor
 
     public class TrendQuantiles
     {
-        public int DecreasingFast { get; set; }
+        public float DecreasingFast { get; set; }
 
-        public int Decreasing { get; set; }
+        public float Decreasing { get; set; }
 
-        public int IncreasingFast { get; set; }
+        public float IncreasingFast { get; set; }
 
-        public int Increasing { get; set; }
+        public float Increasing { get; set; }
     }
 }

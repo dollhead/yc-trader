@@ -2,6 +2,6 @@ namespace YCTrader.Services.Predictor
 {
     public interface IExchangeRatePredictor
     {
-        ExchangeRateResponse GetPrediction();
+        ExchangeRateTrend GetExchangeRateTrend();
     }
 }

@@ -16,10 +16,8 @@ namespace YCTrader.Services.Predictor
             _options = options;
         }
 
-        public ExchangeRateResponse GetPrediction()
+        public ExchangeRateTrend GetExchangeRateTrend()
         {
-            var latestExchangeRate = _exchangeRatesStorage.GetLatestExchangeRate();
-
             var exchangeRatesForCurrentDay = _exchangeRatesStorage.GetExchangeRatesForCurrentDay();
             var currentDayTimeSeries =
                 new TimeSeries(exchangeRatesForCurrentDay, _options.CurrentValue.TimeSeriesPeriod);
@@ -31,17 +29,35 @@ namespace YCTrader.Services.Predictor
                 new TimeSeries(exchangeRatesForPreviousDays, _options.CurrentValue.TimeSeriesPeriod);
             var previousDaysMovingAverage = previousDaysTimeSeries.GetMovingAverage();
 
-            var movingAveragesRatio = (currentDayMovingAverage - previousDaysMovingAverage) / currentDayMovingAverage;
+            return GetExchangeRateTrend(currentDayMovingAverage, previousDaysMovingAverage);
+        }
 
-            return new ExchangeRateResponse
+        private ExchangeRateTrend GetExchangeRateTrend(decimal currentDayMovingAverage, decimal previousDaysMovingAverage)
+        {
+            var movingAveragesRatio = (float)((currentDayMovingAverage - previousDaysMovingAverage) / previousDaysMovingAverage);
+
+            var quantiles = _options.CurrentValue.TrendQuantiles;
+            if (movingAveragesRatio < quantiles.DecreasingFast)
             {
-                Rate = new ExchangeRate
-                {
-                    Price = latestExchangeRate,
-                    Timestamp = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds()
-                },
-                Trend = movingAveragesRatio > 0 ? ExchangeRateTrend.DecreasingFast : ExchangeRateTrend.IncreasingFast
-            };
+                return ExchangeRateTrend.DecreasingFast;
+            }
+
+            if (movingAveragesRatio < quantiles.Decreasing)
+            {
+                return ExchangeRateTrend.Decreasing;
+            }
+
+            if (movingAveragesRatio < quantiles.Increasing)
+            {
+                return ExchangeRateTrend.Stable;
+            }
+
+            if (movingAveragesRatio < quantiles.IncreasingFast)
+            {
+                return ExchangeRateTrend.Increasing;
+            }
+
+            return ExchangeRateTrend.IncreasingFast;
         }
     }
 }
