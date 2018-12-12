@@ -47,13 +47,12 @@ namespace YCTrader.Console
 
             var fetcherOptionsSection = context.Configuration.GetSection("exchangeRatesFetcherOptions");
             var fetcherOptions = fetcherOptionsSection.Get<ExchangeRatesFetcherOptions>();
-
+            services.Configure<ExchangeRatesFetcherOptions>(fetcherOptionsSection);
+            
+            services.Configure<ExchangeRatePredictorOptions>(context.Configuration.GetSection("exchangeRatePredictorOptions"));
+            
             services.AddHttpClient<IExchangeRatesServiceClient, ExchangeRatesServiceClient>()
                 .AddTransientHttpErrorPolicy(p => p.RetryAsync(fetcherOptions.NumberOfRetries));
-
-            services.Configure<ExchangeRatesFetcherOptions>(fetcherOptionsSection);
-            services.Configure<ExchangeRatePredictorOptions>(
-                context.Configuration.GetSection("exchangeRatePredictorOptions"));
 
             services.AddRouting();
         }

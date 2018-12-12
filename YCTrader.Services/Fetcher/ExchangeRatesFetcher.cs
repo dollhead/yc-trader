@@ -17,11 +17,11 @@ namespace YCTrader.Services.Fetcher
         private readonly IExchangeRatesStorage _exchangeRatesStorage;
         private readonly IExchangeRatesServiceClient _exchangeRatesServiceClient;
         private readonly ILogger _logger;
-        private readonly IOptionsMonitor<ExchangeRatesFetcherOptions> _options;
+        private readonly IOptions<ExchangeRatesFetcherOptions> _options;
         private Timer _timer;
 
         public ExchangeRatesFetcher(ILogger<ExchangeRatesFetcher> logger,
-            IOptionsMonitor<ExchangeRatesFetcherOptions> options,
+            IOptions<ExchangeRatesFetcherOptions> options,
             IExchangeRatesStorage exchangeRatesStorage,
             IExchangeRatesServiceClient exchangeRatesServiceClient)
         {
@@ -43,7 +43,7 @@ namespace YCTrader.Services.Fetcher
             await GenerateDataForPreviousDays();
             
             _timer = new Timer(DoWorkAsync, null, TimeSpan.Zero,
-                TimeSpan.FromSeconds(_options.CurrentValue.FetchInterval));
+                TimeSpan.FromSeconds(_options.Value.FetchInterval));
         }
 
         public Task StopAsync(CancellationToken cancellationToken)
@@ -64,27 +64,21 @@ namespace YCTrader.Services.Fetcher
         private async Task GenerateDataForPreviousDays()
         {
             var currentExchangeRate = await _exchangeRatesServiceClient.GetCurrentExchangeRate();
-            var numberOfPreviousDaysForDataGeneration = _options.CurrentValue.NumberOfPreviousDaysToFetch;
-            var todayDate = DateTime.Today;
-            var startDate = todayDate.Subtract(TimeSpan.FromDays(numberOfPreviousDaysForDataGeneration));
-
-            var currentDate = startDate;
+            var numberOfPreviousDaysForDataGeneration = _options.Value.NumberOfPreviousDaysToFetch;
             var random = new Random();
 
-            var maxExchangeRateMultiplier = _options.CurrentValue.MaxExchangeRateMultiplier;
-            var minExchangeRateMultiplier = _options.CurrentValue.MinExchangeRateMultiplier;
-            while (currentDate != todayDate)
+            var maxExchangeRateMultiplier = _options.Value.MaxExchangeRateMultiplier;
+            var minExchangeRateMultiplier = _options.Value.MinExchangeRateMultiplier;
+            
+            var generatedClosingPrices = new List<decimal>();
+            for (var i = 0; i < numberOfPreviousDaysForDataGeneration; i++)
             {
                 var randomRateMultiplier = (decimal)(random.NextDouble() * (maxExchangeRateMultiplier - minExchangeRateMultiplier) + minExchangeRateMultiplier);
-                
-                _exchangeRatesStorage.SaveExchangeRate(new ExchangeRate
-                {
-                    Price = currentExchangeRate.Price * randomRateMultiplier,
-                    Timestamp = new DateTimeOffset(currentDate).ToUnixTimeSeconds()
-                });
-                
-                currentDate = currentDate.AddSeconds(_options.CurrentValue.FetchInterval);
+                var closingPrice = currentExchangeRate.Price * randomRateMultiplier;
+                generatedClosingPrices.Add(closingPrice);
             }
+            
+            _exchangeRatesStorage.SaveClosingPrices(generatedClosingPrices);
         }
     }
 }

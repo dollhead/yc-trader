@@ -12,6 +12,7 @@ namespace YCTrader.Services.Storage
 
         ExchangeRate LatestExchangeRate { get; }
 
-        IDictionary<long, decimal> GetExchangeRatesForPreviousDays(int numberOfDays);
+        IEnumerable<decimal> GetClosingPricesForPreviousDays(int numberOfDays);
+        void SaveClosingPrices(IList<decimal> closingPrices);
     }
 }

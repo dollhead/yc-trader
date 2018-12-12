@@ -9,8 +9,8 @@ namespace YCTrader.Services.Storage
     public class ExchangeRatesStorage : IExchangeRatesStorage
     {
         private readonly object _currentExchangeRateUpdateLock = new object();
-        private readonly ConcurrentDictionary<long, decimal> _exchangeRates =
-            new ConcurrentDictionary<long, decimal>();
+        private readonly ConcurrentDictionary<long, decimal> _exchangeRatesForCurrentDay = new ConcurrentDictionary<long, decimal>();
+        private readonly List<decimal> _closingPricesForPreviousDays = new List<decimal>();
         
         private ExchangeRate _latestExchangeRate;
         
@@ -35,23 +35,26 @@ namespace YCTrader.Services.Storage
             var dateTime = exchangeRate.Timestamp;
             var price = exchangeRate.Price;
 
-            _exchangeRates[dateTime] = price;
+            _exchangeRatesForCurrentDay[dateTime] = price;
             
             LatestExchangeRate = exchangeRate;
         }
 
+        public void SaveClosingPrices(IList<decimal> closingPrices)
+        {
+            _closingPricesForPreviousDays.AddRange(closingPrices);
+        }
+
         public IDictionary<long, decimal> GetExchangeRatesForCurrentDay()
         {
-            return _exchangeRates
+            return _exchangeRatesForCurrentDay
                 .Where(x => DateTimeOffset.FromUnixTimeSeconds(x.Key).Date == DateTime.UtcNow.Date)
                 .ToDictionary(x => x.Key, x => x.Value);
         }
 
-        public IDictionary<long, decimal> GetExchangeRatesForPreviousDays(int numberOfDays)
+        public IEnumerable<decimal> GetClosingPricesForPreviousDays(int numberOfDays)
         {
-            return _exchangeRates
-                .Where(x => DateTimeOffset.FromUnixTimeSeconds(x.Key).DateTime > DateTime.UtcNow.Subtract(TimeSpan.FromDays(numberOfDays)))
-                .ToDictionary(x => x.Key, x => x.Value);
+            return _closingPricesForPreviousDays.TakeLast(numberOfDays);
         }
     }
 }
